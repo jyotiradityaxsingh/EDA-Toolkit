@@ -31,6 +31,7 @@ while(True):
         1> Check File Path And Type
         2> Inspect Data
         3> Information on Data (Quick)
+        4> Measure of Central Tendency
         Q/q> Quit
     ''')
 
@@ -42,6 +43,8 @@ while(True):
         usrCls.peek()
     elif usrInput == '3':
         usrCls.info()
+    elif usrInput == '4':
+        usrCls.centralTendency()
     elif usrInput == 'Q' or 'q':
         exit()
     else:
