@@ -1,7 +1,7 @@
-# Libraries
 import os
 import pandas as pd
 import numpy as np
+from scipy.stats import trim_mean, mode
 
 class EDAToolkit:
 
@@ -37,3 +37,29 @@ class EDAToolkit:
         print()
         print("DESCRIPTION")
         print(data.describe())
+
+    def centralTendency(self):
+        """Returns All The Measures In Measure of Central Tendency Applied On Each Column of The Data"""
+        data = self.loadData()  # Load data here
+        results = {}
+
+        for column in data.columns:
+            columnData = data[column].dropna()  # Drop NaN values For Calculations
+            # Mean
+            MeanValue = columnData.mean()
+            # Trimmed Mean (Default Trimming Percentage: 10%)
+            trimmedMeanValue = trim_mean(columnData, proportiontocut=0.1)
+            # Median
+            medianValue = columnData.median()
+            # Mode
+            modeResult = mode(columnData)
+            modeValue = modeResult[0]
+            results[column] = {
+                'Mean': MeanValue,
+                'Trimmed Mean': trimmedMeanValue,
+                'Median': medianValue,
+                'Mode': modeValue
+            }
+
+        resultsDataFrame = pd.DataFrame(results).T
+        print(resultsDataFrame)
